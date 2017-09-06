@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using MissionPlanner.Comms;
@@ -35,6 +36,10 @@ namespace MissionPlanner
         private static Utilities.sbp sbp = new Utilities.sbp();
         // ubx detection
         private static Utilities.ubx_m8p ubx_m8p = new Utilities.ubx_m8p();
+
+        // RTCM broadcast
+        private static MAVLinkInterface broadcastPort = new MAVLinkInterface();
+
 
         static nmea nmea = new nmea();
         // background thread 
@@ -121,6 +126,13 @@ namespace MissionPlanner
             rtcm3.ObsMessage += Rtcm3_ObsMessage;
 
             MissionPlanner.Utilities.Tracking.AddPage(this.GetType().ToString(), this.Text);
+
+            // Init RTCM broadcast port
+            UdpClient udp_client = new UdpClient();
+            udp_client.EnableBroadcast = true;
+            UdpSerial udp = new UdpSerial(udp_client);
+            broadcastPort.BaseStream = udp;
+
         }
 
         private void Rtcm3_ObsMessage(object sender, EventArgs e)
@@ -558,8 +570,8 @@ namespace MissionPlanner
                             }
                         }
                     }
-
-                    System.Threading.Thread.Sleep(10);
+                   // for some RTK Bases this original Sleep() missed messages 
+                   // System.Threading.Thread.Sleep(10);
                 }
                 catch (Exception ex)
                 {
@@ -868,11 +880,29 @@ namespace MissionPlanner
 
         private static void sendData(byte[] data, byte length)
         {
-            foreach (var port in MainV2.Comports)
+            // if RTCM broadcast is checked - send GPS data to single broadcast adress
+            // else - send GPS data to every UAV
+            if (Instance.chk_rtcmBroadcast.Checked) 
             {
-                foreach (var MAV in port.MAVlist)
+                IPAddress IpBrd;
+                int portBrd;
+                if (IPAddress.TryParse(Instance.txt_UDPBroadcastIP.Text, out IpBrd)) 
                 {
-                    port.InjectGpsData(MAV.sysid, MAV.compid, data, (byte) length, rtcm_msg);
+                    if (int.TryParse(Instance.txt_UDPBroadcastPort.Text, out portBrd)) 
+                    {
+                        (broadcastPort.BaseStream as UdpSerial).RemoteIpEndPoint = new IPEndPoint(IpBrd, portBrd);
+                        broadcastPort.InjectGpsData(0, 0, data, (byte)length, rtcm_msg);
+                    }
+                }
+            }
+            else 
+            {
+                foreach (var port in MainV2.Comports) 
+                    {
+                    foreach (var MAV in port.MAVlist) 
+                        {
+                        port.InjectGpsData(MAV.sysid, MAV.compid, data, (byte)length, rtcm_msg);
+                    }
                 }
             }
         }

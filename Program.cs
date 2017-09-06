@@ -81,7 +81,7 @@ namespace MissionPlanner
                 return;
             }
 
-            name = "Mission Planner";
+            name = "Mission Planner DDC";
 
             try
             {

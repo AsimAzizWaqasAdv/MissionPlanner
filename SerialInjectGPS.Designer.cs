@@ -80,6 +80,11 @@
             this.labelgps = new System.Windows.Forms.Label();
             this.labelbase = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chk_rtcmBroadcast = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txt_UDPBroadcastIP = new System.Windows.Forms.TextBox();
+            this.txt_UDPBroadcastPort = new System.Windows.Forms.TextBox();
             this.groupBoxm8p.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -456,9 +461,40 @@
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
+            // chk_rtcmBroadcast
+            // 
+            resources.ApplyResources(this.chk_rtcmBroadcast, "chk_rtcmBroadcast");
+            this.chk_rtcmBroadcast.Name = "chk_rtcmBroadcast";
+            this.chk_rtcmBroadcast.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // txt_UDPBroadcastIP
+            // 
+            resources.ApplyResources(this.txt_UDPBroadcastIP, "txt_UDPBroadcastIP");
+            this.txt_UDPBroadcastIP.Name = "txt_UDPBroadcastIP";
+            // 
+            // txt_UDPBroadcastPort
+            // 
+            resources.ApplyResources(this.txt_UDPBroadcastPort, "txt_UDPBroadcastPort");
+            this.txt_UDPBroadcastPort.Name = "txt_UDPBroadcastPort";
+            // 
             // SerialInjectGPS
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.txt_UDPBroadcastPort);
+            this.Controls.Add(this.txt_UDPBroadcastIP);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.chk_rtcmBroadcast);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.chk_m8pautoconfig);
@@ -539,5 +575,10 @@
         private System.Windows.Forms.DataGridViewButtonColumn Use;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
         private System.Windows.Forms.CheckBox chk_movingbase;
+        private System.Windows.Forms.CheckBox chk_rtcmBroadcast;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txt_UDPBroadcastIP;
+        private System.Windows.Forms.TextBox txt_UDPBroadcastPort;
     }
 }
