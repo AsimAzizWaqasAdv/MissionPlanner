@@ -398,7 +398,7 @@ namespace MissionPlanner.Utilities
 
             System.Threading.Thread.Sleep(100);
 
-            // port config - 115200 - uart1
+    /*        // port config - 115200 - uart1
             var packet = generate(0x6, 0x00, new byte[] { 0x01, 0x00, 0x00, 0x00, 0xD0, 0x08, 0x00, 0x00, 0x00, 0xC2,
                 0x01, 0x00, 0x23, 0x00, 0x23, 0x00, 0x00, 0x00, 0x00, 0x00 });
             port.Write(packet, 0, packet.Length);
@@ -425,9 +425,9 @@ namespace MissionPlanner.Utilities
                 0x00, 0x00, 0x23, 0x00, 0x23, 0x00, 0x00, 0x00, 0x00, 0x00 });
             port.Write(packet, 0, packet.Length);
             System.Threading.Thread.Sleep(300);
-
+            */
             // set rate to 1hz
-            packet = generate(0x6, 0x8, new byte[] { 0xE8, 0x03, 0x01, 0x00, 0x01, 0x00 });
+            var packet = generate(0x6, 0x8, new byte[] { 0xE8, 0x03, 0x01, 0x00, 0x01, 0x00 });
             port.Write(packet, 0, packet.Length);
             System.Threading.Thread.Sleep(200);
 
@@ -504,18 +504,18 @@ namespace MissionPlanner.Utilities
             turnon_off(port, 0xf5, 0xE6, 5);
 
             // NAV-VELNED - 1s
-            turnon_off(port, 0x01, 0x12, 1);
+            turnon_off(port, 0x01, 0x12, 0);
 
             // rxm-raw/rawx - 1s
-            turnon_off(port, 0x02, 0x15, 1);
-            turnon_off(port, 0x02, 0x10, 1);
+            turnon_off(port, 0x02, 0x15, 0);
+            turnon_off(port, 0x02, 0x10, 0);
 
             // rxm-sfrb/sfrb - 2s
-            turnon_off(port, 0x02, 0x13, 2);
-            turnon_off(port, 0x02, 0x11, 2);
+            turnon_off(port, 0x02, 0x13, 0);
+            turnon_off(port, 0x02, 0x11, 0);
 
             // mon-hw - 2s
-            turnon_off(port, 0x0a, 0x09, 2);
+            turnon_off(port, 0x0a, 0x09, 0);
 
             System.Threading.Thread.Sleep(100);
         }

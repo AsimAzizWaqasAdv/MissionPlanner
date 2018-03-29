@@ -387,7 +387,8 @@ namespace MissionPlanner
                     if (basepos != PointLatLngAlt.Zero)
                         ubx_m8p.SetupBasePos(comPort, basepos, 0, 0, false, chk_movingbase.Checked);
 
-                    CMB_baudrate.Text = "115200";
+                   // CMB_baudrate.Text = "115200";
+                    CMB_baudrate.Text = "9600";
 
                     this.LogInfo("Setup M8P done");
                 }
