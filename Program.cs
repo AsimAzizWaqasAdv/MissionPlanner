@@ -81,7 +81,7 @@ namespace MissionPlanner
                 return;
             }
 
-            name = "Mission Planner DDC";
+            name = "Mission Planner DDC [Radio]";
 
             try
             {
